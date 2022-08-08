@@ -107,7 +107,8 @@ export class LambdaBlogStack extends Stack {
       architecture: Architecture.ARM_64,
       code: Code.fromAsset('lambda'),
       functionName: 'clear-cache-lambda',
-      environment: { 'CF_DISTRIBUTION_ID': 'E1Y4FI6WDGLYI0' }
+      environment: { 'CF_DISTRIBUTION_ID': 'E1Y4FI6WDGLYI0' },
+      timeout: Duration.seconds(30)
     })
 
     cachelambda.addEventSource(new DynamoEventSource(postTable, { startingPosition: StartingPosition.LATEST }))
