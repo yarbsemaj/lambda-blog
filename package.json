@@ -1,18 +1,31 @@
 {
-  "name": "blog-backend",
-  "version": "1.0.0",
-  "description": "<!-- title: 'AWS Simple HTTP Endpoint example in NodeJS' description: 'This template demonstrates how to make a simple REST API with Node.js running on AWS Lambda and API Gateway using the traditional Serverless Framework.' layout: Doc framework: v2 platform: AWS language: nodeJS priority: 1 authorLink: 'https://github.com/serverless' authorName: 'Serverless, inc.' authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4' -->",
-  "main": "handler.js",
-  "dependencies": {
-    "aws": "0.0.3-2",
-    "aws-sdk": "^2.987.0",
-    "joi": "^17.4.2",
-    "randomstring": "^1.2.1"
+  "name": "lambda-blog",
+  "version": "0.1.0",
+  "bin": {
+    "lambda-blog": "bin/lambda-blog.js"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk"
   },
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "@types/jest": "^27.5.2",
+    "@types/node": "10.17.27",
+    "@types/prettier": "2.6.0",
+    "aws-cdk": "2.35.0",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.4",
+    "ts-node": "^10.9.1",
+    "typescript": "~3.9.7"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-appsync": "^1.167.0",
+    "aws-cdk-lib": "2.35.0",
+    "aws-sdk": "^2.1188.0",
+    "constructs": "^10.0.0",
+    "randomstring": "^1.2.2",
+    "source-map-support": "^0.5.21"
+  }
 }

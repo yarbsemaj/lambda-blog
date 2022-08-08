@@ -1,0 +1,24 @@
+{
+    "version": "2018-05-29",
+    "operation": "UpdateItem",
+    "key": {
+        "id": $util.dynamodb.toDynamoDBJson($ctx.args.input.id)
+    },
+    "update":{
+        "expression": "set #status = :status, #title = :title, #body = :body, #image = :image, #description = :description",
+        "expressionNames": {
+            "#title": "title",
+            "#body": "body",
+            "#status": "status",
+            "#image": "image",
+            "#description": "description",
+        },
+        "expressionValues": {
+            ":title": $util.dynamodb.toDynamoDBJson($ctx.args.input.title),
+            ":body": $util.dynamodb.toDynamoDBJson($ctx.args.input.body),
+            ":status": $util.dynamodb.toDynamoDBJson($ctx.args.input.status),
+            ":image": $util.dynamodb.toDynamoDBJson($ctx.args.input.image),
+            ":description": $util.dynamodb.toDynamoDBJson($ctx.args.input.description),
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "version": "2018-05-29",
+    "operation": "Query",
+    "index": "status-createdDate-index",
+    "query":{
+        "expression": "#status = :status",
+        "expressionNames": { "#status": "status" },
+        "expressionValues": { ":status": {"S" : "published" }}
+        },
+    "scanIndexForward": false
+}

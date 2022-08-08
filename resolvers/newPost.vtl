@@ -1,0 +1,15 @@
+{
+    "version": "2018-05-29",
+    "operation": "PutItem",
+    "key": {
+        "id": $util.dynamodb.toDynamoDBJson($ctx.args.input.title.replace(' ','-').replaceAll('[^a-zA-Z0-9-]','').toLowerCase())
+    },
+    "attributeValues": {
+        "title": $util.dynamodb.toDynamoDBJson($ctx.args.input.title),
+        "body": $util.dynamodb.toDynamoDBJson($ctx.args.input.body),
+        "status": $util.dynamodb.toDynamoDBJson($ctx.args.input.status),
+        "image": $util.dynamodb.toDynamoDBJson($ctx.args.input.image),
+        "description": $util.dynamodb.toDynamoDBJson($ctx.args.input.description),
+        "createdDate": $util.dynamodb.toDynamoDBJson($util.time.nowISO8601())
+    }
+}
