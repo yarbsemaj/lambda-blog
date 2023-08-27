@@ -68,7 +68,7 @@ export class LambdaBlogStack extends Stack {
 
     //Dynamo table
     const postTable = new Table(this, 'blog-post-table', {
-      tableName: 'blog-posts',
+      tableName: 'eu-west-2-blog-posts',
       readCapacity: 1,
       writeCapacity: 1,
       stream: aws_dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
@@ -107,9 +107,10 @@ export class LambdaBlogStack extends Stack {
       architecture: Architecture.ARM_64,
       code: Code.fromAsset('lambda'),
       functionName: 'clear-cache-lambda',
-      environment: { 'CF_DISTRIBUTION_ID': 'E1Y4FI6WDGLYI0' },
+      environment: { 'CF_DISTRIBUTION_ID': 'E2ZLWBGONA8QXX' },
       timeout: Duration.seconds(30)
     })
+    apiSchema.addDependsOn(dynamoDataSource)
 
     cachelambda.addEventSource(new DynamoEventSource(postTable, { startingPosition: StartingPosition.LATEST }))
 
@@ -172,7 +173,7 @@ export class LambdaBlogStack extends Stack {
       requestMappingTemplate: formatTemplate(readFileSync('resolvers/removePost.vtl').toString()),
       responseMappingTemplate: '$util.toJson($ctx.result)',
     })
-    listPublishedPostsResolver.addDependsOn(removePostResolver);
+    removePostResolver.addDependsOn(apiSchema);
 
     const updatePostResolver = new CfnResolver(this, 'update-post-resolver', {
       apiId: api.attrApiId,
@@ -182,6 +183,6 @@ export class LambdaBlogStack extends Stack {
       requestMappingTemplate: formatTemplate(readFileSync('resolvers/updatePost.vtl').toString()),
       responseMappingTemplate: '$util.toJson($ctx.result)',
     })
-    updatePostResolver.addDependsOn(removePostResolver);
+    updatePostResolver.addDependsOn(apiSchema);
   }
 }
